@@ -8,3 +8,9 @@ jobs: #cria um trabalho
   build: #contrui um job
     name: Post welcome comment #nome do job
     runs-on: ubuntu-latest #runner (executador) do job
+    steps: #etapas do job
+      #código shell que comenta automaticamente no commit
+      - run: gh pr comment $PR_URL --body "Welcome to the repository!" 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
